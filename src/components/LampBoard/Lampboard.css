@@ -1,0 +1,67 @@
+.lampboard {
+    clear: both;
+    margin: 0px auto;
+    padding: 20px;
+    width: 660px;
+    height: 180px;
+  }
+  
+  .lamp {
+    font-size: 16pt;
+    font-family: Tahoma;
+    color: #d0d0d0;
+    float: left;
+    border: 3px #040404 solid;
+    width: 40px;
+    height: 40px;
+    margin: 4px 14px;
+    padding: 3px;
+    border-radius: 50%;
+    background: linear-gradient(
+      135deg,
+      #000000 0%,
+      #0a0a0a 11%,
+      #0a0a0a 21%,
+      #4e4e4e 33%,
+      #383838 37%,
+      #383838 37%,
+      #1b1b1b 43%,
+      #1b1b1b 43%,
+      #000000 100%
+    );
+  }
+  
+  .lampOn {
+    color: #333333;
+    background: #fceabb;
+    background: -moz-linear-gradient(
+      -45deg,
+      #fceabb 0%,
+      #f8b500 40%,
+      #f8b500 41%,
+      #fccd4d 43%,
+      #fbdf93 100%
+    );
+    background: -webkit-linear-gradient(
+      -45deg,
+      #fceabb 0%,
+      #f8b500 40%,
+      #f8b500 41%,
+      #fccd4d 43%,
+      #fbdf93 100%
+    );
+    background: linear-gradient(
+      135deg,
+      #fceabb 0%,
+      #f8b500 40%,
+      #f8b500 41%,
+      #fccd4d 43%,
+      #fbdf93 100%
+    );
+  }
+  
+  .keyNewLine {
+    clear: left;
+    margin-left: 48px;
+  }
+  
