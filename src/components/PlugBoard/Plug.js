@@ -1,8 +1,13 @@
 import React from "react";
 
-const Plug = ({ plug }) => {
+const Plug = ({ plug, handleOnClick }) => {
   return (
-    <div className={`plug ${plug === "A" ? " keyNewLine" : ""}`}>{plug}</div>
+    <div
+      className={`plug ${plug === "A" ? " keyNewLine" : ""}`}
+      onClick={handleOnClick}
+    >
+      {plug}
+    </div>
   );
 };
 
