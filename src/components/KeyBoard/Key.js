@@ -1,10 +1,14 @@
 import React from "react";
 
-const Key = ({ singleKey }) => {
+const Key = ({ singleKey, handleOnMouseDown, handleOnMouseUp }) => {
   return (
-    <div className={`key${singleKey === "A" ? " keyNewLine" : ""}`}>
+    <button
+      className={`key${singleKey === "A" ? " keyNewLine" : ""}`}
+      onMouseDown={handleOnMouseDown}
+      onMouseUp={handleOnMouseUp}
+    >
       {singleKey}
-    </div>
+    </button>
   );
 };
 
