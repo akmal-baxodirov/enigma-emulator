@@ -3,9 +3,14 @@ import KeyBoard from "./components/KeyBoard/KeyBoard";
 import LampBoard from "./components/LampBoard/LampBoard";
 import PlugBoard from "./components/PlugBoard/PlugBoard";
 import Rotors from "./components/Rotor/Rotors";
+import { getRotor, REFLECTOR_B } from "./constants";
+import { Enigma } from "./service/Enigma";
+
 import "./style/App.css";
 
 function App() {
+  const enigma = new Enigma(getRotor.III, getRotor.I, getRotor.II, REFLECTOR_B);
+
   const [plugBoard, setPlugBoard] = useState({
     Q: "",
     W: "",
@@ -35,15 +40,32 @@ function App() {
     L: "",
   });
 
+  const [wheels, setWheels] = useState({
+    leftRotor: enigma.leftRotorEntry,
+    middleRotor: enigma.middleRotorEntry,
+    rightRotor: enigma.rightRotorEntry,
+  });
+
+  // console.log(enigma);
+
   const handleKeyboard = (key) => {
-    console.log(key);
+    enigma.turnRightRotor();
+    enigma.getDecryption(key);
+    setWheels({
+      leftRotor: enigma.leftRotorEntry,
+      middleRotor: enigma.middleRotorEntry,
+      rightRotor: enigma.rightRotorEntry,
+    });
   };
 
-  console.log(plugBoard);
   return (
     <div className="enigmaWrapper">
       <div className="enigma">
-        <Rotors />
+        <Rotors
+          leftRotor={wheels.leftRotor}
+          middleRotor={wheels.middleRotor}
+          rightRotor={wheels.rightRotor}
+        />
         <LampBoard />
         <div className="line"></div>
         <KeyBoard handleKeyboard={handleKeyboard} />

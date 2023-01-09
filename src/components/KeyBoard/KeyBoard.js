@@ -14,6 +14,10 @@ const KeyBoard = ({ handleKeyboard }) => {
     sound.play();
   };
 
+  const handleKey = (currentKey) => {
+    handleKeyboard(currentKey);
+  };
+
   const handleKeyDown = (e) => {
     let currentKey = e.key.toUpperCase();
 
@@ -22,7 +26,7 @@ const KeyBoard = ({ handleKeyboard }) => {
         key.classList.add("active");
       }
     });
-    handleKeyboard(currentKey);
+    handleKey(currentKey);
     playSound();
   };
   const handleKeyUp = (e) => {
@@ -35,7 +39,7 @@ const KeyBoard = ({ handleKeyboard }) => {
     let currentKey = e.target.innerText;
     e.target.classList.add("active");
 
-    handleKeyboard(currentKey);
+    handleKey(currentKey);
     playSound();
   };
 
