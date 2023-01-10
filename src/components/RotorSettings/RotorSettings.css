@@ -1,0 +1,30 @@
+.rotorSettings {
+  display: block;
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  margin-left: -320px;
+  width: 640px;
+  height: 260px;
+  color: white;
+  text-align: center;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.rotorSettings button {
+  margin: 6px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+table {
+  border-width: 1px;
+  -webkit-border-horizontal-spacing: 0px;
+  -webkit-border-vertical-spacing: 0px;
+  width: 100%;
+}
+
+td {
+  padding: 10px;
+}
