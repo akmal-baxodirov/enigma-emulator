@@ -12,6 +12,7 @@
   margin: 10px auto 20px auto;
   padding: 12px;
   border-radius: 8px;
+  position: relative;
 }
 .enigma {
   background-color: black;

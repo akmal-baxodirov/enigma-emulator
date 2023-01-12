@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import "./RotorSettings.css";
 import useRotorPosition from "../../customHooks/useRotorPosition";
 import useSelectRotor from "../../customHooks/useSelectRouter";
+import { useDispatch, useSelector } from "react-redux";
+import { setRotorSettings } from "../../app/reducers/rotorReducer";
 
-const RotorSettings = ({
-  setModal,
-  rotorSettings,
-  setRotorSettings,
-  modal,
-}) => {
+const RotorSettings = ({ setModal, modal }) => {
+  const { rotorSettings } = useSelector((state) => state.rotor);
+  const dispatch = useDispatch();
+
   const [reflector, setReflector] = useState(rotorSettings.reflector);
 
   const [rotor1, SelectFirstRotor] = useSelectRotor(rotorSettings.rotor1);
@@ -26,28 +26,32 @@ const RotorSettings = ({
   );
 
   const handleSubmit = () => {
-    setRotorSettings({
-      reflector,
-      rotor1,
-      rotor2,
-      rotor3,
-      rotor1Init,
-      rotor2Init,
-      rotor3Init,
-    });
+    dispatch(
+      setRotorSettings({
+        reflector,
+        rotor1,
+        rotor2,
+        rotor3,
+        rotor1Init,
+        rotor2Init,
+        rotor3Init,
+      })
+    );
     setModal(false);
   };
 
   const handleCancel = () => {
-    setRotorSettings({
-      reflector: rotorSettings.reflector,
-      rotor1: rotorSettings.rotor1,
-      rotor2: rotorSettings.rotor2,
-      rotor3: rotorSettings.rotor3,
-      rotor1Init: rotorSettings.rotor1Init,
-      rotor2Init: rotorSettings.rotor2Init,
-      rotor3Init: rotorSettings.rotor3Init,
-    });
+    dispatch(
+      setRotorSettings({
+        reflector: rotorSettings.reflector,
+        rotor1: rotorSettings.rotor1,
+        rotor2: rotorSettings.rotor2,
+        rotor3: rotorSettings.rotor3,
+        rotor1Init: rotorSettings.rotor1Init,
+        rotor2Init: rotorSettings.rotor2Init,
+        rotor3Init: rotorSettings.rotor3Init,
+      })
+    );
     setModal(false);
   };
 

@@ -45,8 +45,12 @@ export const R5 = "VZBRGITYUPSDNHLXAWMJQOFECK";
 export const R5_T = "Z"; // ROTOR 5 TURNOVER
 
 // Reflectors
-export const REFLECTOR_B = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
-export const REFLECTOR_C = "FVPJIAOYEDRZXWGCTKUQSBNMHL";
+export const getReflector = {
+  REFLECTOR_B: "YRUHQSLDPXNGOKMIEBFZCWVJAT",
+  REFLECTOR_C: "FVPJIAOYEDRZXWGCTKUQSBNMHL",
+};
+// export const REFLECTOR_B = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
+// export const REFLECTOR_C = "FVPJIAOYEDRZXWGCTKUQSBNMHL";
 
 export const getRotor = {
   I: { rotor: R1, rotorTurn: R1_T },

@@ -1,25 +1,17 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getDecryption, turnRightRotor } from "./app/reducers/rotorReducer";
+import { EnigmaBook } from "./components/EnigmaBook/EnigmaBook";
 import KeyBoard from "./components/KeyBoard/KeyBoard";
 import LampBoard from "./components/LampBoard/LampBoard";
 import PlugBoard from "./components/PlugBoard/PlugBoard";
 import Rotors from "./components/Rotor/Rotors";
 import RotorSettings from "./components/RotorSettings/RotorSettings";
-import { getRotor, REFLECTOR_B } from "./constants";
-import { Enigma } from "./service/Enigma";
-
 import "./style/App.css";
 
 function App() {
-  const [rotorSettings, setRotorSettings] = useState({
-    reflector: "REFLECTOR_B",
-    rotor1: "I",
-    rotor2: "II",
-    rotor3: "III",
-    rotor1Init: "A",
-    rotor2Init: "A",
-    rotor3Init: "A",
-  });
-  const enigma = new Enigma(getRotor.III, getRotor.I, getRotor.II, REFLECTOR_B);
+  const rotor = useSelector((state) => state.rotor);
+  const dispatch = useDispatch();
 
   const [plugBoard, setPlugBoard] = useState({
     Q: "",
@@ -51,47 +43,27 @@ function App() {
   });
   const [modal, setModal] = useState(false);
 
-  const [wheels, setWheels] = useState({
-    leftRotor: enigma.leftRotorEntry,
-    middleRotor: enigma.middleRotorEntry,
-    rightRotor: enigma.rightRotorEntry,
-  });
-
   const handleKeyboard = (key) => {
-    enigma.turnRightRotor();
-    enigma.getDecryption(key);
-    setWheels({
-      leftRotor: enigma.leftRotorEntry,
-      middleRotor: enigma.middleRotorEntry,
-      rightRotor: enigma.rightRotorEntry,
-    });
+    dispatch(turnRightRotor());
+    dispatch(getDecryption(key));
   };
-
-  console.log(rotorSettings);
+  console.log(rotor);
 
   return (
-    <div className="enigmaWrapper">
-      <div className="enigma">
-        <RotorSettings
-          rotorSettings={rotorSettings}
-          setRotorSettings={setRotorSettings}
-          setModal={setModal}
-          modal={modal}
-        />
-
-        <Rotors
-          leftRotor={wheels.leftRotor}
-          middleRotor={wheels.middleRotor}
-          rightRotor={wheels.rightRotor}
-          setModal={setModal}
-        />
-        <LampBoard />
-        <div className="line"></div>
-        <KeyBoard handleKeyboard={handleKeyboard} />
-        <div className="line"></div>
-        <PlugBoard setPlugBoard={setPlugBoard} />
+    <>
+      <EnigmaBook />
+      <div className="enigmaWrapper">
+        <div className="enigma">
+          <RotorSettings setModal={setModal} modal={modal} />
+          <Rotors setModal={setModal} />
+          <LampBoard />
+          <div className="line"></div>
+          <KeyBoard handleKeyboard={handleKeyboard} />
+          <div className="line"></div>
+          <PlugBoard setPlugBoard={setPlugBoard} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
