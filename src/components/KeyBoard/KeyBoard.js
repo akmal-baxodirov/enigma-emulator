@@ -15,7 +15,8 @@ const KeyBoard = ({ handleKeyboard }) => {
   };
 
   const handleKey = (currentKey) => {
-    handleKeyboard(currentKey);
+    let allowedKey = KEYBOARD.find((key) => key === currentKey);
+    allowedKey && handleKeyboard(currentKey);
   };
 
   const handleKeyDown = (e) => {
