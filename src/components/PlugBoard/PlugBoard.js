@@ -36,7 +36,7 @@ const PlugBoard = ({ setPlugBoard }) => {
         clickedElement.style.background = plugColors[0];
       }
     } else {
-      if (pairPlugs.length === 0 || pairPlugs[0] === clickedElement) {
+      if (pairPlugs.length === 0) {
         let pluggedLetter = clickedElement.getAttribute("plugged");
         let removedColor = [...plugColors];
         removedColor.unshift(clickedElement.style.background);
