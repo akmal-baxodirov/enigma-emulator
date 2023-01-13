@@ -165,41 +165,28 @@ export const rotorSlice = createSlice({
         rotor3Init,
       } = action.payload;
 
+
+      const rotor1Index = getIndexOfLetter(rotor1Init, ENTRY);
+      const rotor2Index = getIndexOfLetter(rotor2Init, ENTRY);
+      const rotor3Index = getIndexOfLetter(rotor3Init, ENTRY);
+
       return {
-        leftRotorEntry: changePosition(
-          ENTRY,
-          getIndexOfLetter(rotor1Init, ENTRY)
-        ),
+        leftRotorEntry: changePosition(ENTRY, rotor1Index),
         leftRotor: {
           ...getRotor[rotor1],
-          rotor: changePosition(
-            getRotor[rotor1].rotor,
-            getIndexOfLetter(rotor1Init, getRotor[rotor1].rotor)
-          ),
+          rotor: changePosition(getRotor[rotor1].rotor, rotor1Index),
         },
 
-        middleRotorEntry: changePosition(
-          ENTRY,
-          getIndexOfLetter(rotor2Init, ENTRY)
-        ),
+        middleRotorEntry: changePosition(ENTRY, rotor2Index),
         middleRotor: {
           ...getRotor[rotor2],
-          rotor: changePosition(
-            getRotor[rotor2].rotor,
-            getIndexOfLetter(rotor2Init, getRotor[rotor2].rotor)
-          ),
+          rotor: changePosition(getRotor[rotor2].rotor, rotor2Index),
         },
 
-        rightRotorEntry: changePosition(
-          ENTRY,
-          getIndexOfLetter(rotor3Init, ENTRY)
-        ),
+        rightRotorEntry: changePosition(ENTRY, rotor3Index),
         rightRotor: {
           ...getRotor[rotor3],
-          rotor: changePosition(
-            getRotor[rotor3].rotor,
-            getIndexOfLetter(rotor3Init, getRotor[rotor3].rotor)
-          ),
+          rotor: changePosition(getRotor[rotor3].rotor, rotor3Index),
         },
 
         reflectorEntry: ENTRY,
