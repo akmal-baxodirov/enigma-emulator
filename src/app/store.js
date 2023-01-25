@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "../features/counter/counterSlice";
+import plugBoardReducer from "./reducers/plugBoardReducer";
 import rotorReducer from "./reducers/rotorReducer";
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     rotor: rotorReducer,
+    plugBoard: plugBoardReducer,
   },
 });

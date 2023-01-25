@@ -3,8 +3,7 @@ import { useSelector } from "react-redux";
 import "./EnigmaBook.css";
 export const EnigmaBook = () => {
   const { text, encryptedText } = useSelector((state) => state.rotor);
-
-  // console.log(text.match(/.{1,5}/g)?.join(" "));
+  
   return (
     <div className="enigmaBook">
       <div className="text">

@@ -7,47 +7,30 @@ import LampBoard from "./components/LampBoard/LampBoard";
 import PlugBoard from "./components/PlugBoard/PlugBoard";
 import Rotors from "./components/Rotor/Rotors";
 import RotorSettings from "./components/RotorSettings/RotorSettings";
+import { KEYBOARD } from "./constants";
+import typeSound from "./assets/mixkit-single-key-press-in-a-laptop-2541.wav";
 import "./style/App.css";
 
 function App() {
-  const rotor = useSelector((state) => state.rotor);
+  const plugBoard = useSelector((state) => state.plugBoard);
   const dispatch = useDispatch();
-
-  const [plugBoard, setPlugBoard] = useState({
-    Q: "",
-    W: "",
-    E: "",
-    R: "",
-    T: "",
-    Z: "",
-    U: "",
-    I: "",
-    O: "",
-    A: "",
-    S: "",
-    D: "",
-    F: "",
-    G: "",
-    H: "",
-    J: "",
-    K: "",
-    P: "",
-    Y: "",
-    X: "",
-    C: "",
-    V: "",
-    B: "",
-    N: "",
-    M: "",
-    L: "",
-  });
   const [modal, setModal] = useState(false);
 
-  const handleKeyboard = (key) => {
-    dispatch(turnRightRotor());
-    dispatch(getDecryption(key));
+  const sound = new Audio(typeSound);
+
+  const playSound = () => {
+    sound.currentTime = 0;
+    sound.play();
   };
-  console.log(rotor);
+
+  const handleKeyboard = (currentKey) => {
+    const allowedKey = KEYBOARD.find((key) => key === currentKey);
+    if (allowedKey) {
+      dispatch(turnRightRotor());
+      dispatch(getDecryption({ currentKey, plugBoard }));
+      playSound();
+    }
+  };
 
   return (
     <>
@@ -60,7 +43,7 @@ function App() {
           <div className="line"></div>
           <KeyBoard handleKeyboard={handleKeyboard} />
           <div className="line"></div>
-          <PlugBoard setPlugBoard={setPlugBoard} />
+          <PlugBoard />
         </div>
       </div>
     </>

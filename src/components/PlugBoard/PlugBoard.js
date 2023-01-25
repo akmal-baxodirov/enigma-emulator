@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setPluggedKey } from "../../app/reducers/plugBoardReducer";
 import { KEYBOARD } from "../../constants";
 import Plug from "./Plug";
 import "./PlugBoard.css";
 const PlugBoard = ({ setPlugBoard }) => {
+  const dispatch = useDispatch();
   const usePlug = useRef();
 
   const [plugList, setPlugList] = useState([]);
@@ -55,9 +58,7 @@ const PlugBoard = ({ setPlugBoard }) => {
         updatedValue[pluggedLetter] = "";
         updatedValue[clickedText] = "";
 
-        setPlugBoard((prev) => {
-          return { ...prev, ...updatedValue };
-        });
+        dispatch(setPluggedKey(updatedValue));
         setPlugColors([...removedColor]);
         setPairPlugs([]);
       }
@@ -81,12 +82,10 @@ const PlugBoard = ({ setPlugBoard }) => {
       pairPlugs[1].setAttribute("plugged", pairPlugs[0].innerText);
 
       setPlugColors([...removedColor]);
-      setPlugBoard((prev) => {
-        return { ...prev, ...updatedValue };
-      });
+      dispatch(setPluggedKey(updatedValue));
       setPairPlugs([]);
     }
-  }, [pairPlugs, setPlugColors, plugColors, setPlugBoard]);
+  }, [pairPlugs, setPlugColors, plugColors, dispatch]);
 
   return (
     <div className="plugboard" ref={usePlug}>

@@ -16,6 +16,7 @@ const initialState = {
 
   text: "",
   encryptedText: "",
+  letter: "",
 
   rotorSettings: {
     reflector: "REFLECTOR_B",
@@ -56,6 +57,10 @@ const getIndexOfLetter = (letter, rotorEntry) => {
 const getLetterByIndex = (letterIndex, rotorEntry) => {
   return rotorEntry[letterIndex];
 };
+
+const handlePlugBoard = (key, plugBoard) => {
+  return plugBoard[key] || key;
+};
 export const rotorSlice = createSlice({
   name: "rotor",
   initialState,
@@ -80,7 +85,6 @@ export const rotorSlice = createSlice({
           state.middleRotorEntry,
           state.middleRotor.rotor
         );
-        // console.log(middleEntry, middleRotor);
         state.middleRotorEntry = middle.entry;
         state.middleRotor.rotor = middle.rotor;
       }
@@ -98,32 +102,12 @@ export const rotorSlice = createSlice({
       }
     },
 
-    // turnMiddleRotor(state) {
-    //   const { entry, rotor } = turnRotor(
-    //     state.middleRotorEntry,
-    //     state.middleRotor.rotor
-    //   );
-    //   state.middleRotorEntry = entry;
-    //   state.middleRotor.rotor = rotor;
-
-    //   if (
-    //     state.middleRotorEntry[state.middleRotorEntry.length - 1] ===
-    //     state.middleRotor.rotorTurn
-    //   ) {
-    //     this.turnLeftRotor();
-    //   }
-    // },
-    // turnLeftRotor(state) {
-    //   const { entry, rotor } = turnRotor(
-    //     state.leftRotorEntry,
-    //     state.leftRotor.rotor
-    //   );
-    //   state.leftRotorEntry = entry;
-    //   state.leftRotor.rotor = rotor;
-    // },
-
     getDecryption(state, action) {
-      const entryIndex = getIndexOfLetter(action.payload, ENTRY);
+      const { currentKey, plugBoard } = action.payload;
+      const entryIndex = getIndexOfLetter(
+        handlePlugBoard(currentKey, plugBoard),
+        ENTRY
+      );
 
       const w1Letter = getLetterByIndex(entryIndex, state.rightRotor.rotor);
       const w1Index = getIndexOfLetter(w1Letter, state.rightRotorEntry);
@@ -149,8 +133,10 @@ export const rotorSlice = createSlice({
       const entryLetter = getLetterByIndex(w1I, ENTRY);
       return {
         ...state,
-        text: state.text + action.payload,
-        encryptedText: state.encryptedText + entryLetter,
+        text: state.text + currentKey,
+        encryptedText:
+          state.encryptedText + handlePlugBoard(entryLetter, plugBoard),
+        letter: handlePlugBoard(entryLetter, plugBoard),
       };
     },
 
@@ -164,7 +150,6 @@ export const rotorSlice = createSlice({
         rotor2Init,
         rotor3Init,
       } = action.payload;
-
 
       const rotor1Index = getIndexOfLetter(rotor1Init, ENTRY);
       const rotor2Index = getIndexOfLetter(rotor2Init, ENTRY);
